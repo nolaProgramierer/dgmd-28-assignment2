@@ -27,44 +27,49 @@ document.addEventListener("DOMContentLoaded", function() {
             // Set eventlistener for each square
             (function (i) {
                 newSquare.addEventListener("click", function() {
-                    playGame(this);
+                    playGame(this, board);
                 });
             })(i);
             console.log("Making square number " + (i + 1));
             // Make checkerboard effect
             checkerBoard(i, newSquare);          
         }// End for loop      
-        console.log(board);
+
     }// End makeBoard function
 
     // add X's and 0's
     var turn = 0;
     var player1 = [];
     var player2 = [];
-    function playGame(newSquare) {     
+    function playGame(newSquare, board) {     
         if (turn % 2 == 0) {      
-            player1.push(newSquare.dataset.squareNum);
+            player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.innerHTML =  "<h1>X</h1>";
+            isWinner(player1, board);
+           
+
         } else {
-            player2.push(newSquare.dataset.squareNum);
+            player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.innerHTML =  "<h1>O</h1>";
+           
         }
         turn ++;
-        console.log("Turn #:" + turn);
-        console.log("Player1: " + player1);
-        console.log("Player2: " + player2);
+        console.log(turn);
+        console.log(player1);
+        console.log(player2);
     }
    
    
     // Test for winning combination of squares
     function isWinner(player, board) {
-        if (board[0] == player && board[1] == player % board[2] == player |
-            board[3] == player && board[4] == player & board[5] == player |
-            board[6] == player && board[7] == player & board[8] == player |
-            board[0] == player && board[3] == player & board[6] == player |
-            board[1] == player && board[4] == player & board[7] == player |
-            board[2] == player && board[5] == player & board[8] == player |
-            board[0] == player && board[4] == player & board[8] == player |
+       
+        if (board[0] == player[0] && board[1] == player[1] && board[2] == player[2]||
+            board[3] == player && board[4] == player & board[5] == player ||
+            board[6] == player && board[7] == player & board[8] == player ||
+            board[0] == player && board[3] == player & board[6] == player ||
+            board[1] == player && board[4] == player & board[7] == player ||
+            board[2] == player && board[5] == player & board[8] == player ||
+            board[0] == player && board[4] == player & board[8] == player ||
             board[2] == player && board[4] == player & board[6] == player)
             {
                 console.log("Winner");
