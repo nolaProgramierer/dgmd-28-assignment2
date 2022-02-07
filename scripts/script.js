@@ -27,10 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Set eventlistener for each square
             (function (i) {
                 newSquare.addEventListener("click", function() {
-                    // Add function to insert 'X' or 'O'
-                    //this.innerHTML = "<h1>X</h1>";
-                    playGame(this.dataset.squareNum);
-                    console.log(this.dataset.squareNum);
+                    playGame(this);
                 });
             })(i);
             console.log("Making square number " + (i + 1));
@@ -44,16 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
     var turn = 0;
     var player1 = [];
     var player2 = [];
-    function playGame(squareNum) {
-        
-        if (turn % 2 == 0) {
-            this.innerHTML = "<h1>X</h1>";
-            player1.push(squareNum);
+    function playGame(newSquare) {     
+        if (turn % 2 == 0) {      
+            player1.push(newSquare.dataset.squareNum);
+            newSquare.innerHTML =  "<h1>X</h1>";
         } else {
-            player2.push(squareNum);
+            player2.push(newSquare.dataset.squareNum);
+            newSquare.innerHTML =  "<h1>O</h1>";
         }
         turn ++;
-        console.log(squareNum);
         console.log("Turn #:" + turn);
         console.log("Player1: " + player1);
         console.log("Player2: " + player2);
