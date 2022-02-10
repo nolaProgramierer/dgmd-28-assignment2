@@ -2,8 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // On button click make new board
     document.querySelector("#board-button").addEventListener("click", function () {       
-        console.log("'Show board' button clicked");
         makeBoard();
+    });
+
+    document.querySelector("#clear-board").addEventListener("click", function () {       
+        location.reload();
     });
 
     // 9 squares added to grid container
@@ -37,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }// End makeBoard function
 
+    
+    
     // add X's and 0's
     var turn = 0;
     var player1 = [];
@@ -45,32 +50,28 @@ document.addEventListener("DOMContentLoaded", function() {
         if (turn % 2 == 0) {      
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.innerHTML =  "<h1>X</h1>";
-            isWinner(player1, board);
-           
-
+            if(isWinner(player1, board)) {
+                console.log("I won!");
+            };
         } else {
             player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.innerHTML =  "<h1>O</h1>";
-           
+            if(isWinner(player2, board)) {
+                console.log("I won!");
+            };
         }
         turn ++;
-        console.log(turn);
-        console.log(player1);
-        console.log(player2);
-    }
-   
-   
+    } 
     // Test for winning combination of squares
-    function isWinner(player, board) {
-       
-        if (board[0] == player[0] && board[1] == player[1] && board[2] == player[2]||
-            board[3] == player && board[4] == player & board[5] == player ||
-            board[6] == player && board[7] == player & board[8] == player ||
-            board[0] == player && board[3] == player & board[6] == player ||
-            board[1] == player && board[4] == player & board[7] == player ||
-            board[2] == player && board[5] == player & board[8] == player ||
-            board[0] == player && board[4] == player & board[8] == player ||
-            board[2] == player && board[4] == player & board[6] == player)
+    function isWinner(player, board) {    
+        if (player.includes(board[0]) && player.includes(board[1]) && player.includes(board[2]) ||
+            player.includes(board[3]) && player.includes(board[4]) && player.includes(board[5]) ||
+            player.includes(board[6]) && player.includes(board[7]) && player.includes(board[8]) ||
+            player.includes(board[0]) && player.includes(board[3]) && player.includes(board[6]) ||
+            player.includes(board[1]) && player.includes(board[4]) && player.includes(board[7]) ||
+            player.includes(board[2]) && player.includes(board[5]) && player.includes(board[8]) ||
+            player.includes(board[0]) && player.includes(board[4]) && player.includes(board[8]) ||
+            player.includes(board[2]) && player.includes(board[4]) && player.includes(board[6]))
             {
                 console.log("Winner");
                 return true;
