@@ -52,22 +52,21 @@ document.addEventListener("DOMContentLoaded", function() {
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "X";
-            if (isWinner(player1, board)) {        
-                console.log("X player won!");
-               
+            if (isWinner(player1, board)) { 
+                showWinner(player1);       
+                console.log("X player won!");       
             }
         } else {
             player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "O";
             if (isWinner(player2, board)) {
-                
+                showWinner(player2);
                 console.log("O player won!");
                 
             }
         }
-        // Add conditional for no winner here
-        // Use # of turns to decide if a draw
+       
         turn ++;
     }
 
@@ -98,7 +97,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }// End checkerBoard
 
-    // On winner remove event listener to continue play
+    // Show winner in browser
+    function showWinner(player) {
+        var winnerCircle = document.querySelector("#winner-div");
+        if (player == player1) {
+            winnerCircle.innerHTML = "X is the winner!";
+        } else winnerCircle.innerHTML = "O is the winner!";
+    }
+
     
     console.log("DOM content parsed and loaded.");
 });//End DOMContentLoaded
