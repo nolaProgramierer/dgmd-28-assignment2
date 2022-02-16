@@ -29,10 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
             // Set data attribute to number of square created
             newSquare.setAttribute("data-square-num", (i + 1));
             // Set eventlistener for each square for game play
+            // Event will fire only once
             (function (i) {
                 newSquare.addEventListener("click", function() {
                     playGame(this, board);
-                });
+                }, {once: true});
             })(i);
             console.log("Making square number " + (i + 1));
             // Add checkerboard effect
@@ -51,18 +52,22 @@ document.addEventListener("DOMContentLoaded", function() {
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "X";
-            if (isWinner(player1, board)) {
+            if (isWinner(player1, board)) {        
                 console.log("X player won!");
+               
             }
         } else {
             player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "O";
             if (isWinner(player2, board)) {
+                
                 console.log("O player won!");
+                
             }
         }
         // Add conditional for no winner here
+        // Use # of turns to decide if a draw
         turn ++;
     }
 
@@ -91,6 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (index % 2 != 0) {
             el.style.backgroundColor = "white";
         }
-    }
+    }// End checkerBoard
+
+    // On winner remove event listener to continue play
+    
     console.log("DOM content parsed and loaded.");
 });//End DOMContentLoaded
