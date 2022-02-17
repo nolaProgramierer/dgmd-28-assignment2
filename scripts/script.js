@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     // On button click make new board
     document.querySelector("#board-button").addEventListener("click", function () {
+        document.querySelector("#welcome-msg").style.display = "none";
         makeBoard();
     });
     // Reload page
@@ -15,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
         var board = [];
         var numSquares = 9;
 
-        var turns = 0;
-        
         for (let i = 0; i < numSquares; i++) {
             // Create board
             let newSquare = document.createElement("div");
@@ -25,11 +24,11 @@ document.addEventListener("DOMContentLoaded", function() {
             boardDiv.appendChild(newSquare);
             // Board square numbers in an array
             board.push(i + 1);
-           
+
             // Set data attribute to number of square created
             newSquare.setAttribute("data-square-num", (i + 1));
             // Set eventlistener for each square for game play
-            // Event will fire only once
+            // Event will fire only once preventing more than one entry per square
             (function (i) {
                 newSquare.addEventListener("click", function() {
                     playGame(this, board);
@@ -41,10 +40,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }// End for loop
     }// End makeBoard function
 
-    
-    
+
+
     // add X's and 0's to board
     var turn = 0;
+    var maxTurns = 8;
     var player1 = [];
     var player2 = [];
     function playGame(newSquare, board) {
@@ -52,24 +52,29 @@ document.addEventListener("DOMContentLoaded", function() {
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "X";
-            if (isWinner(player1, board)) { 
-                showWinner(player1);       
-                console.log("X player won!");       
+            console.log("Turn # " + turn);
+            if (isWinner(player1, board)) {
+                showWinner(player1);
+                console.log("X player won!");
+            } else if (!isWinner(player2, board) && (turn == maxTurns)) {
+                document.querySelector("#winner-div").innerHTML = "It's a draw!";
+                console.log("Draw!");
             }
         } else {
             player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "O";
+            console.log("Turn # " + turn);
             if (isWinner(player2, board)) {
                 showWinner(player2);
                 console.log("O player won!");
-                
+            }   else if (!isWinner(player2, board) && (turn == maxTurns)) {
+                document.querySelector("#winner-div").innerHTML = "It's a draw!";
+                console.log("Draw!");
             }
         }
-       
         turn ++;
     }
-
 
     // Test for winning combination of squares
     function isWinner(player, board) {
@@ -89,22 +94,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 return false;
             }
      }
-    
+
     // Change background color of square if for loop index is odd
     function checkerBoard(index, el) {
         if (index % 2 != 0) {
             el.style.backgroundColor = "white";
         }
-    }// End checkerBoard
+    }
 
     // Show winner in browser
     function showWinner(player) {
         var winnerCircle = document.querySelector("#winner-div");
         if (player == player1) {
             winnerCircle.innerHTML = "X is the winner!";
-        } else winnerCircle.innerHTML = "O is the winner!";
+        } else {
+            winnerCircle.innerHTML = "O is the winner!";
+        }
     }
 
-    
     console.log("DOM content parsed and loaded.");
 });//End DOMContentLoaded
