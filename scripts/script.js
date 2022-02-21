@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
             boardDiv.appendChild(newSquare);
             // Board square numbers in an array
             board.push(i + 1);
+            // Show initial turn
+            document.querySelector("#winner-div").innerHTML= "X begins";
 
             // Set data attribute to number of square created
             newSquare.setAttribute("data-square-num", (i + 1));
@@ -40,14 +42,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }// End for loop
     }// End makeBoard function
 
-    // add X's and 0's to board
     var turn = 0;
     var maxTurns = 8;
     var player1 = [];
     var player2 = [];
+
+    // add X's and 0's to board
     function playGame(newSquare, board) {
+        var turnDiv = document.querySelector("#winner-div");
         // Turns decided by even/odd turn numbers, X begins
         if (turn % 2 == 0) {
+            turnDiv.innerHTML = "O's turn";
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "X";
@@ -55,15 +60,13 @@ document.addEventListener("DOMContentLoaded", function() {
             if (isWinner(player1, board)) {
                 showWinner(player1);
                 console.log("X player won!");
-                
-                //prevent further play
-
                 // If no winner and max number of moves, end game
             } else if (!isWinner(player2, board) && (turn == maxTurns)) {
                 document.querySelector("#winner-div").innerHTML = "It's a draw!";
                 console.log("Draw!");
             }
         } else {
+            turnDiv.innerHTML = "X's turn";
             player2.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
             newSquare.innerHTML =  "O";

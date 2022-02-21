@@ -34,6 +34,7 @@ h1 {
     grid-row: 3 / 4;
     font-size: 3em;
     justify-self: center;
+    align-self: center;
 }
 #game-stop {
     grid-column: 2 / 3;
