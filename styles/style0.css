@@ -18,11 +18,16 @@ body {
 h1 {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
-    justify-self: center; 
+    justify-self: center;
 }
-#game-controls button {
+#game-controls {
     grid-column: 1 / 4;
-    grid-row: 2 / 3;
+    grid-row: 2 / 3;  
+    justify-self: center;
+    padding-bottom: 1.5em;
+}
+.game-control {
+    font-size: 2em;
 }
 #winner-div {
     grid-column: 3 / 4;
@@ -38,7 +43,6 @@ h1 {
     z-index: 100;
     display: none; 
 }
-
 .ttt-square {
     height: 125px;
     width: 125px;
