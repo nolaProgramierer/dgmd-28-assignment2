@@ -40,14 +40,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }// End for loop
     }// End makeBoard function
 
-
-
     // add X's and 0's to board
     var turn = 0;
     var maxTurns = 8;
     var player1 = [];
     var player2 = [];
     function playGame(newSquare, board) {
+        // Turns decided by even/odd turn numbers, X begins
         if (turn % 2 == 0) {
             player1.push(parseInt(newSquare.dataset.squareNum));
             newSquare.classList.add("board-marks");
@@ -56,6 +55,10 @@ document.addEventListener("DOMContentLoaded", function() {
             if (isWinner(player1, board)) {
                 showWinner(player1);
                 console.log("X player won!");
+                
+                //prevent further play
+
+                // If no winner and max number of moves, end game
             } else if (!isWinner(player2, board) && (turn == maxTurns)) {
                 document.querySelector("#winner-div").innerHTML = "It's a draw!";
                 console.log("Draw!");
@@ -102,8 +105,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Show winner in browser
+    // Show winner in hidden div
     function showWinner(player) {
+        // prevent further play
+        document.querySelector("#game-stop").style.display = "block";
+        // display winner
         var winnerCircle = document.querySelector("#winner-div");
         if (player == player1) {
             winnerCircle.innerHTML = "X is the winner!";
