@@ -24,9 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
             boardDiv.appendChild(newSquare);
             // Board square numbers in an array
             board.push(i + 1);
-            // Show initial turn
-            document.querySelector("#winner-div").innerHTML= "X begins";
-
             // Set data attribute to number of square created
             newSquare.setAttribute("data-square-num", (i + 1));
             // Set eventlistener for each square for game play
@@ -40,16 +37,18 @@ document.addEventListener("DOMContentLoaded", function() {
             // Add checkerboard effect
             checkerBoard(i, newSquare);
         }// End for loop
+        // Show initial turn
+        document.querySelector("#winner-div").innerHTML= "X begins";
     }// End makeBoard function
 
     var turn = 0;
     var maxTurns = 8;
     var player1 = [];
     var player2 = [];
+    var turnDiv = document.querySelector("#winner-div");
 
     // add X's and 0's to board
     function playGame(newSquare, board) {
-        var turnDiv = document.querySelector("#winner-div");
         // Turns decided by even/odd turn numbers, X begins
         if (turn % 2 == 0) {
             turnDiv.innerHTML = "O's turn";
